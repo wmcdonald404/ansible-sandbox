@@ -1,0 +1,25 @@
+---
+
+- name: Create EC2 Sandbox Instances
+  hosts: localhost
+  vars:
+    count: 1
+    image: ami-7abd0209
+    instance_type: t2.micro
+    keypair: wmcdonald rsa-key-20050324
+    region: eu-west-1
+    set_dns: false
+  connection: local
+  gather_facts: false
+  tasks:
+    - name: Provision a single EC2 instance
+      ec2:
+        count: "{{ count }}"
+        image: "{{ image }}"
+        instance_type: "{{ instance_type }}"
+        keypair: "{{ keypair }}"
+        region: "{{ region }}"
+        wait: yes
+      register: ec2
+
+# vim:sw=2:ts=2:et:ai
